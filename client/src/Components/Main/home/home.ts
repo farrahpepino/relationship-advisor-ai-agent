@@ -11,7 +11,6 @@ import { CommonModule } from '@angular/common';
 
 export class Home implements AfterViewChecked {
   @ViewChild('messagesContainer') messagesContainer!: ElementRef;
-  @ViewChild('inputBox') inputBox!: ElementRef;
 
   chat = [
     { role: "user", text: "I just broke up with him" },
