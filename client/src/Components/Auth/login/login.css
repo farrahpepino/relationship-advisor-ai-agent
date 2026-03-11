@@ -1,0 +1,28 @@
+.app{
+    background: #FFFCF6;
+    height: 100vh;
+    width: 100wh;
+    text-align: center;
+}
+
+.logo{
+    font-size: clamp(46px, 6vw, 96px);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10%;
+}
+
+.mail {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 60vh;
+    width: 100vw;
+    background-color: #F8F7F6;
+    border-top: solid 1px #BBB7AB;
+    border-radius: 20px 20px 0px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

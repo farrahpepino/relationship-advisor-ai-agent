@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,12 @@ import { CommonModule } from '@angular/common';
 })
 
 export class Home implements AfterViewChecked {
+  constructor(private route: Router){}
+
+  signOut(){
+    this.route.navigate(['/']);
+  }
+
   @ViewChild('messagesContainer') messagesContainer!: ElementRef;
   opened = false;
   closed = true;
