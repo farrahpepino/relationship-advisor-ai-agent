@@ -40,27 +40,50 @@
 }
 
 .input-wrapper{
-    margin: 0 auto;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .messages{
     display:flex;
     flex-direction:column;
     gap:10px;
-    width: min(700px, 90%);
+    width: min(65%, 90%);
     margin-top: auto;
 }
 
 .user{
     align-self:flex-end;
-    background:#f5e6dc;
+    background: #BBB7AB;
     padding:10px;
-    border-radius:12px;
+    border-radius: 0px 0px 12px 12px;
 }
 
 .agent{
     align-self:flex-start;
-    background:#eee;
+    background: white;
     padding:10px;
-    border-radius:12px;
+}
+
+.app.open {
+    width: 75%;
+    position: fixed;
+    right: 0;
+}
+
+.app.open .header {
+    background-color: white; 
+}
+
+.app.open .logo {
+    right: 50px;
+}
+
+.input-wrapper.open {
+ left: 62.5%;  
+ transform: translateX(-50%);
+}
+
+.messages.open{
+    width: min(85%, 90%);
 }
