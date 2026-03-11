@@ -1,0 +1,57 @@
+body {
+    font-family: "Inter";
+    font-style: normal;
+    overflow: hidden;
+}
+
+.brand-font {
+    font-family: "Homemade Apple", cursive;
+    font-weight: 400;
+    font-style: normal;  
+    color: #473224;
+}
+
+.logo-sm{
+    font-size: 20;
+}
+
+.bt-t {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.input-wrapper {
+    display: flex;
+    width: min(700px, 90%);
+    gap: 10px; 
+    position: fixed;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 10px 0px;
+}
+
+.input{
+    flex: 1; 
+    font-size: 16px;
+    position: relative;
+    min-height: 36px;
+    outline: none;
+    border: 1px solid #473224;
+    border-radius: 0px 0px 12px 12px;
+    padding: 10px 10px 0px 10px;
+    max-height: 500px;;
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.input:empty::before {
+    content: attr(data-placeholder);
+    color: #aaa;
+    pointer-events: none; 
+    font-size: 14px;
+}
