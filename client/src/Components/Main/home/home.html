@@ -8,7 +8,7 @@
     </div>
 
     <div class="chat-container" #messagesContainer>
-        <div class="brand-font empty-chat" *ngIf="messages.length==0">
+        <div class="brand-font empty-chat" *ngIf="messages.length==0" [class.open]="opened">
             Need some relationship advice?
         </div>
         <div class="messages" *ngIf="messages.length > 0" [class.open]="opened">
@@ -40,7 +40,7 @@
     </div>
 
 
-    <div>
+    <div class="sidebar-content">
         <div class="h2">
             Your chats
             <button type="button" title="view-chats" class="bt-t" (click)="toggleChats()">

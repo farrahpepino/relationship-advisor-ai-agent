@@ -21,9 +21,9 @@
 }
 
 .sign-out{
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-top:20px; 
 }
 
 .sign-out .icon-hover{
@@ -46,14 +46,13 @@
 }
 
 .sidebar-btn.open{
-    right: -80%;
+    right: -75%;
 }
 
 .h2{
     color: #BBB7AB;
-    position: absolute;
-    top: 100px;
-    left: 20px;
+    margin-top: 100px;
+    margin-left: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -71,6 +70,11 @@
 
 .empty-chat{
     font-size:clamp(20px,4vw,36px);
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .input-wrapper{
@@ -82,7 +86,8 @@
     display:flex;
     flex-direction:column;
     gap:50px;
-    width: min(85%, 90%);
+    width: min(900px, 85%);
+    /* width: min(85%, 90%); */
     margin-top: auto;
 }
 
@@ -104,6 +109,8 @@
     top: 0;
     left: -100%;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
     background-color: rgba(248, 247, 246, 0.80);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(7px);
@@ -111,6 +118,13 @@
     z-index: 1001;
     transition:left 0.25s ease;
     pointer-events: none;
+}
+
+.sidebar-content{
+    display:flex;
+    flex-direction:column;
+    flex:1;
+    min-height:0;
 }
 
 .sidebar.open{
@@ -133,9 +147,11 @@
 }
 
 .chats{
-    width: 80vw;
-    margin-top: 150px;
+    width: 75vw;
     margin-left: 20px;
+    overflow-y: auto;
+    flex:1;
+    min-height:0;
 }
 
 .send{
@@ -186,6 +202,12 @@
     transform: translateX(-50%);
     }
 
+    .empty-chat.open{
+        left: 62.5%;  
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
     .messages.open{
         width: min(85%, 90%);
     }
@@ -194,7 +216,7 @@
         width: 25vw;
     }
 
-    .chats{
+    .chats {
         width: 23vw;
     }
 
@@ -202,5 +224,5 @@
         width: 13vw;
         left: 85%;
     }
-    
+
 }

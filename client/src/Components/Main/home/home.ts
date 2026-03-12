@@ -70,6 +70,46 @@ export class Home implements AfterViewChecked {
     {
       id: 5,
       title: "How to ask her out"
+    },
+    {
+      id: 1,
+      title: "Stubbornness and love"
+    },
+    {
+      id: 2,
+      title: "Crush remembrance"
+    },
+    {
+      id: 3,
+      title: "Before Sunrise summary"
+    },
+    {
+      id: 4,
+      title: "Date ideas"
+    },
+    {
+      id: 5,
+      title: "How to ask her out"
+    },
+    {
+      id: 1,
+      title: "Stubbornness and love"
+    },
+    {
+      id: 2,
+      title: "Crush remembrance"
+    },
+    {
+      id: 3,
+      title: "Before Sunrise summary"
+    },
+    {
+      id: 4,
+      title: "Date ideas"
+    },
+    {
+      id: 5,
+      title: "How to ask her out"
     }
   ]
 
