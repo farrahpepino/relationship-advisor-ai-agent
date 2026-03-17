@@ -1,0 +1,6 @@
+.env
+models/
+repositories/
+routes/
+services/
+database.py
