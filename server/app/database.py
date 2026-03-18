@@ -18,6 +18,7 @@ db = client[db_name]
 
 conversations_col = db["conversations"]
 messages_col = db["messages"]
+users_col = db["users"]
 
 # indexes
 conversations_col.create_index("user_id")
