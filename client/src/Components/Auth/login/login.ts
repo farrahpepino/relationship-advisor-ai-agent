@@ -10,7 +10,9 @@ import { Router } from '@angular/router';
 })
 export class Login {
   constructor(private route: Router){}
+
   signIn(){
     this.route.navigate(['/home']); 
   }
+  
 }
