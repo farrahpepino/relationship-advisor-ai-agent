@@ -17,7 +17,7 @@
             <div 
                 *ngFor="let msg of messages" 
                 [class.user]="msg.role === 'user'" 
-                [class.agent]="msg.role === 'agent'"
+                [class.assistant]="msg.role === 'assistant'"
             >
                 {{ msg.text }}
             </div>

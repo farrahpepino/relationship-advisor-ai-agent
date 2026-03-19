@@ -15,6 +15,6 @@ class User_Repository:
         
         db.add(user)
         db.commit() 
-        db.refresh(user) # what for?
+        db.refresh(user)
         return user
     
