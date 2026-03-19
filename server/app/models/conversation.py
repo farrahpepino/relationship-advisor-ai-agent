@@ -1,7 +1,6 @@
 from sqlalchemy import Column, String, Integer, TIMESTAMP, func
 from app.database.base import Base
 
-
 class Conversation(Base):
     __tablename__ = "conversations"
 
