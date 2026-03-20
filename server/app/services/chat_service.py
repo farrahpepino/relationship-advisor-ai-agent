@@ -11,25 +11,27 @@ from app.models.message import Message
 load_dotenv()
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-message_repository = Message_Repository()
-conversation_repository = Conversation_Repository()
+
 
 class Chat_Service:
+    def __init__(self):
+        self.message_repository = Message_Repository()
+        self.conversation_repository = Conversation_Repository() 
     
     def create_conversation(self, db, user_id):
-        return conversation_repository.create(db, user_id)
+        return self.conversation_repository.create(db, user_id)
 
     def get_conversation(self, db, conversation_id):
-        return conversation_repository.get_conversation(db, conversation_id)
+        return self.conversation_repository.get_conversation(db, conversation_id)
 
     def get_conversations(self, db, user_id):
-        return conversation_repository.get_conversations(db, user_id)
+        return self.conversation_repository.get_conversations(db, user_id)
 
     def get_messages(self, db, conversation_id):
-        return message_repository.get_messages(db, conversation_id)
+        return self.message_repository.get_messages(db, conversation_id)
 
     def send_message(self, db, user_id, conversation_id, input):
-        conversation = conversation_repository.get_conversation(db, conversation_id)
+        conversation = self.conversation_repository.get_conversation(db, conversation_id)
         if not conversation:
             raise HTTPException(status_code=404, detail="Conversation not found")
         
@@ -37,7 +39,7 @@ class Chat_Service:
             raise HTTPException(status_code=403, detail="Not authorized")
 
 
-        messages = message_repository.get_messages(db, conversation_id)
+        messages = self.message_repository.get_messages(db, conversation_id)
         
         history = [
             {"role": m.role, "content": m.content}
@@ -56,14 +58,14 @@ class Chat_Service:
             print(e)
             raise HTTPException(status_code=500, detail="AI failed")
         
-        message_repository.create(db, Message(
+        self.message_repository.create(db, Message(
             id=str(uuid4()),
             conversation_id=conversation_id,
             role="user",
             content=input
         ))
 
-        message_repository.create(db, Message(
+        self.message_repository.create(db, Message(
             id=str(uuid4()),
             conversation_id=conversation_id,
             role="assistant",
@@ -76,7 +78,7 @@ class Chat_Service:
         return reply
 
     def generate_title(self, db, conversation_id):
-        messages = message_repository.get_messages(db, conversation_id)
+        messages = self.message_repository.get_messages(db, conversation_id)
 
         conversation_text = "\n".join([m.content for m in messages])
 
@@ -96,6 +98,6 @@ class Chat_Service:
 
         title = response.choices[0].message.content
 
-        conversation_repository.update_title(db, conversation_id, title)
+        self.conversation_repository.update_title(db, conversation_id, title)
 
         return title
