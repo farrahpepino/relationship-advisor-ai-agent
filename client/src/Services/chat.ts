@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
+import { ChatResponse } from '../Dtos/chat';
+import { Observable } from 'rxjs';
+import { Message } from '../Dtos/message';
 
 @Injectable({
   providedIn: 'root',
@@ -20,29 +23,29 @@ export class Chat {
     });
   }
 
-  createConversation() {
-    return this.http.post(`${this.baseUrl}/create-conversation`, {}, {
+  createConversation(): Observable<ChatResponse>  {
+    return this.http.post<ChatResponse>(`${this.baseUrl}/create-conversation`, {}, {
       headers: this.getHeaders()
     });
   }
 
-  sendMessage(conversationId: string, input: string) {
-    return this.http.post(
+  sendMessage(conversationId: string, input: string): Observable<Message[]>{
+    return this.http.post<Message[]>(
       `${this.baseUrl}/${conversationId}/send-message`,
       { input },
-      { headers: this.getHeaders(), responseType: 'text' } 
+      { headers: this.getHeaders() } 
     );
   }
 
-  getMessages(conversationId: string) {
-    return this.http.get<any[]>(
+  getMessages(conversationId: string): Observable<Message[]> {
+    return this.http.get<Message[]>(
       `${this.baseUrl}/${conversationId}/messages`,
       { headers: this.getHeaders() }
     );
   }
 
-  getConversations() {
-    return this.http.get<any[]>(
+  getConversations(): Observable<ChatResponse[]> {
+    return this.http.get<ChatResponse[]>(
       `${this.baseUrl}/conversations`,
       { headers: this.getHeaders() }
     );

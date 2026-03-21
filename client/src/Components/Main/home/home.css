@@ -142,7 +142,7 @@
 }
 
 .chat:hover,
-.chat:active {
+.chat.active {
     background-color: #BBB7AB;
 }
 

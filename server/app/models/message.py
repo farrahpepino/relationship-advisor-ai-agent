@@ -8,5 +8,4 @@ class Message(Base):
     conversation_id = Column(String(255), ForeignKey("conversations.id"), nullable=False)
     content = Column(String(1000), nullable=False)
     role = Column(String(255), nullable=False)
-    created_at = Column(TIMESTAMP, server_default=func.now())
-    
+    created_at = Column(TIMESTAMP)

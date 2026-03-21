@@ -15,18 +15,19 @@
         </div>
         <div class="messages" *ngIf="messages.length > 0" [class.open]="opened">
             <div 
-                *ngFor="let msg of messages; let i = index" 
+                *ngFor="let msg of messages; trackBy: trackById" 
                 [class.user]="msg.role === 'user'" 
                 [class.assistant]="msg.role === 'assistant'"
+                
                 >
-                    {{ msg.text }}
+                    {{ msg.content }}
             </div>
         </div>
     </div>
 
     <div class="input-wrapper" [class.open]="opened">
         <div contenteditable="true" class="input" data-placeholder="Ask anything"></div>
-        <button type="button" title="send" class="bt-t send">
+        <button type="button" title="send" class="bt-t send" (click)="sendMessage(currentConversationId)">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff"><path d="M440-160v-487L216-423l-56-57 320-320 320 320-56 57-224-224v487h-80Z"/></svg>
             <!-- <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#473224"><path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z"/></svg> -->
         </button>
@@ -53,10 +54,10 @@
         </div>
 
         <div *ngIf="closed" class="chats">
-            <div *ngFor="let chat of chats" class="chat">
-                <div>
-                    {{ chat.title }}
-                </div>
+            <div *ngFor="let chat of chats" class="chat"                 [class.active]="chat.id === currentConversationId">
+                <button class="bt-t" (click)="selectChat(chat.id)">
+                    {{ chat.title.slice(1, -1) }}
+                </button>
 
                 <button class="bt-t" title="actions">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#"><path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"/></svg>
@@ -69,6 +70,8 @@
                 </div> -->
                 
             </div>
+
+            <!-- <button class="bt-t">New Conversation +</button> -->
         </div>
     </div>
 

@@ -3,10 +3,13 @@ from dotenv import load_dotenv
 import os
 from uuid import uuid4
 from fastapi import HTTPException
+from datetime import datetime, timedelta
+
 
 from app.repositories.message_repository import Message_Repository
 from app.repositories.conversation_repository import Conversation_Repository
 from app.models.message import Message
+from app.dtos.message_out import Message_Out
 
 load_dotenv()
 
@@ -63,24 +66,32 @@ class Chat_Service:
             print(e)
             raise HTTPException(status_code=500, detail="AI failed")
 
-        self.message_repository.create(db, Message(
+        user_msg = Message(
             id=str(uuid4()),
             conversation_id=conversation_id,
             role="user",
-            content=user_input
-        ))
+            content=user_input,
+            created_at = datetime.now() 
 
-        self.message_repository.create(db, Message(
+        )
+        self.message_repository.create(db,user_msg )
+
+        assistant_msg = Message(
             id=str(uuid4()),
             conversation_id=conversation_id,
             role="assistant",
-            content=reply
-        ))
+            content=reply,
+            created_at = datetime.now() + timedelta(seconds=1)
+        )
+        self.message_repository.create(db, assistant_msg)
 
         if len(messages) + 2 >= 4:
             self.generate_title(db, conversation_id)
 
-        return reply
+        return [
+            Message_Out.from_orm(user_msg),
+            Message_Out.from_orm(assistant_msg)
+        ]
 
     def generate_title(self, db, conversation_id):
         messages = self.message_repository.get_messages(db, conversation_id)

@@ -1,11 +1,13 @@
 from fastapi import APIRouter, Depends, Header, HTTPException
 from sqlalchemy.orm import Session
+from typing import List
 
 from app.database.session import get_db
 from app.services.chat_service import Chat_Service
 from app.services.auth_service import Auth_Service
 from app.models import *
 from app.dtos.message import *
+
 
 router = APIRouter()
 chat_service = Chat_Service()
@@ -22,19 +24,21 @@ def get_current_user(
     return auth_service.authenticate_account(db, token)
 
 @router.post("/create-conversation")
-def create_conversation(db: Session = Depends(get_db), user = Depends(get_current_user) ):
+def create_conversation(db: Session = Depends(get_db), user = Depends(get_current_user)):
     return chat_service.create_conversation(db, user.id)
 
 @router.post("/{conversation_id}/send-message")
-def send_message(conversation_id: str, body: Message_Request, db: Session = Depends(get_db),user = Depends(get_current_user) ):
-    return chat_service.send_message(db, user.id, conversation_id, body.input)
+def send_message(conversation_id: str, body: Message_Request, db: Session = Depends(get_db),user = Depends(get_current_user)):
+    response = chat_service.send_message(db, user.id, conversation_id, body.input)
+    print(response)
+    return response
 
 @router.get("/{conversation_id}/messages")
-def get_messages(conversation_id: str, db: Session = Depends(get_db)):
-    return chat_service.get_messages(db, conversation_id)
+def get_messages(conversation_id: str, db: Session = Depends(get_db), user = Depends(get_current_user) ):
+    return chat_service.get_messages(db, user.id, conversation_id)
 
 @router.get("/conversations")
-def get_conversations(db: Session = Depends(get_db), user = Depends(get_current_user) ):
+def get_conversations(db: Session = Depends(get_db), user = Depends(get_current_user)):
     return chat_service.get_conversations(db, user.id)
 
 @router.get("/{conversation_id}")

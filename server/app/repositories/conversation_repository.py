@@ -17,7 +17,7 @@ class Conversation_Repository:
         return conversation
     
     def get_conversation(self, db:Session, conversation_id):
-        return db.query(Conversation).filter(id=conversation_id).first()
+        return db.query(Conversation).filter_by(id=conversation_id).first()
 
     def get_conversations(self, db: Session, user_id):
         return db.query(Conversation).filter(Conversation.user_id==user_id).all()
