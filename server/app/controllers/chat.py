@@ -19,7 +19,6 @@ def get_current_user(
         raise HTTPException(status_code=401, detail="Invalid token")
     
     token = authorization.split(" ")[1]
-    print(token)
     return auth_service.authenticate_account(db, token)
 
 @router.post("/create-conversation")
