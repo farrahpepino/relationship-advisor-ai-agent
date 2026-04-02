@@ -9,8 +9,22 @@
     stroke: #473224 !important;
   }
 .loading-container{
-    margin-left: 15px;
+    margin-left: 5px;
 }
+
+.custom-cursor {
+    display: inline-block;
+    width: 1px;
+    height: 1em;
+    background-color:  #473224;
+    margin-left: 2px;
+    animation: cursor-blink 0.75s steps(2) infinite;
+  }
+  
+  @keyframes cursor-blink {
+    0% { opacity: 0; }
+  }
+  
 
 .header{
     height: 70px;

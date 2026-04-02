@@ -134,9 +134,7 @@ typeAssistantChatTitle(chat: ChatResponse, speed: number = 50) {
               // this.messages.push(response[0]);
               this.scrollToBottom();
               this.sanitizeHtml(response[1].content);
-              this.cdr.detectChanges(); 
               this.loadingText = false;
-              this.cdr.detectChanges(); 
               this.typeAssistantMessage(response[1]);
               this.loadingText = false;
               this.cdr.detectChanges(); 
@@ -171,9 +169,7 @@ typeAssistantChatTitle(chat: ChatResponse, speed: number = 50) {
           // this.messages.push(response[0]);
           this.scrollToBottom();
           this.sanitizeHtml(response[1].content);
-          this.cdr.detectChanges(); 
           this.loadingText = false;
-          this.cdr.detectChanges(); 
           this.typeAssistantMessage(response[1]);
           this.loadingText = false;
           this.cdr.detectChanges(); 

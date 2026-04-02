@@ -20,8 +20,8 @@
                 [innerHTML]="sanitizeHtml(msg.content)"
                 >   
             </div>
-            <div class="assisstant loading-container" *ngIf="loadingText==true">
-                <mat-spinner [diameter]="20" class="custom-spinner"></mat-spinner>
+            <div class="assistant loading-container"  *ngIf="loadingText==true">
+                <span [class.custom-cursor]="loadingText==true"></span>
             </div>
         </div>
     </div>
