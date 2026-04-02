@@ -56,9 +56,10 @@ class Chat_Service:
             "content": user_input + """
         Do not use markdown (** **). Replace it with <strong></strong>
 
-        If you need to enumerate:
+        If you need to list:
         - Use numbers (1., 2., 3.) or bullets (•). Either <ol></ol> or <ul> </ul>. Never both.
         - Separate each item with <br> to create a line break.
+        - You don't need to list each fact. Only when asked to list or enumerate.
         """
         })
         try:
