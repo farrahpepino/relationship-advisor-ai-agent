@@ -51,8 +51,16 @@ class Chat_Service:
             for m in messages
         ]
 
-        history.append({"role": "user", "content": user_input})
+        history.append({
+            "role": "user",
+            "content": user_input + """
+        Do not use markdown (** **). Replace it with <strong></strong>
 
+        If you need to enumerate:
+        - Use numbers (1., 2., 3.) or bullets (•). Either <ol></ol> or <ul> </ul>. Never both.
+        - Separate each item with <br> to create a line break.
+        """
+        })
         try:
             response = client.responses.create(
                 model="gpt-4o-mini",

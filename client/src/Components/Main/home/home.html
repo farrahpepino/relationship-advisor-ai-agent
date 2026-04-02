@@ -10,15 +10,18 @@
 
     <div class="chat-container" #messagesContainer>
         <div class="brand-font empty-chat" *ngIf="messages.length==0" [class.open]="opened">
-            Need some relationship advice?
+            Need some relationship advice, {{user!.name}}?
         </div>
         <div class="messages" *ngIf="messages.length > 0" [class.open]="opened">
             <div 
                 *ngFor="let msg of messages; trackBy: trackById" 
                 [class.user]="msg.role === 'user'" 
                 [class.assistant]="msg.role === 'assistant'" 
-                >
-                    {{ msg.content }}
+                [innerHTML]="sanitizeHtml(msg.content)"
+                >   
+            </div>
+            <div class="assisstant loading-container" *ngIf="loadingText==true">
+                <mat-spinner [diameter]="20" class="custom-spinner"></mat-spinner>
             </div>
         </div>
     </div>

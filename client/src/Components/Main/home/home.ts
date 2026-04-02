@@ -7,21 +7,27 @@ import { ChatResponse } from '../../../Dtos/chat';
 import { Message } from '../../../Dtos/message';
 import { ChangeDetectorRef } from '@angular/core';
 import { Loading } from '../../Shared/loading/loading';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { T } from '@angular/cdk/keycodes';
+import { User } from '../../../Dtos/user';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, Loading],
+  imports: [CommonModule, Loading, MatProgressSpinnerModule],
   templateUrl: './home.html',
   styleUrls: ['./home.css'],
 })
 
 export class Home implements AfterViewChecked, OnInit {
-  constructor(private cdr: ChangeDetectorRef, private route: Router, private authService: Auth, private chatService: Chat){}
-
+  constructor(private cdr: ChangeDetectorRef, private route: Router, private authService: Auth, private chatService: Chat, private sanitizer: DomSanitizer){}
+  loadingText = false;
   loading: boolean = true;
-
+  sanitizeHtml(content: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(content);
+  }
   signOut(){
     this.loading = true;
     this.authService.logout();
@@ -45,9 +51,11 @@ export class Home implements AfterViewChecked, OnInit {
   messages: Message[] = [];
   chats: ChatResponse[] = [];
   currentConversationId: string | null = null;
+  user: User | null = null;
 
   ngOnInit(): void {
       this.loading = true;
+      this.user = this.authService.getUser();
       this.chatService.getConversations().subscribe({
         next: (res)=>{
           this.chats = res;
@@ -97,6 +105,8 @@ typeAssistantChatTitle(chat: ChatResponse, speed: number = 50) {
 }
 
   sendMessage(conversationId: string | null){
+
+    this.loadingText = true;
     const inputEl = document.querySelector('.input') as HTMLDivElement;
     if (!inputEl) return;
   
@@ -120,11 +130,15 @@ typeAssistantChatTitle(chat: ChatResponse, speed: number = 50) {
           this.currentConversationId = res.id;
           this.chatService.sendMessage(res.id,input).subscribe({
             next: (response)=>{
-              console.log(response)
               this.cdr.detectChanges(); 
               // this.messages.push(response[0]);
               this.scrollToBottom();
+              this.sanitizeHtml(response[1].content);
+              this.cdr.detectChanges(); 
+              this.loadingText = false;
+              this.cdr.detectChanges(); 
               this.typeAssistantMessage(response[1]);
+              this.loadingText = false;
               this.cdr.detectChanges(); 
               this.chats = [];
               this.chatService.getConversations().subscribe({
@@ -156,7 +170,12 @@ typeAssistantChatTitle(chat: ChatResponse, speed: number = 50) {
           this.cdr.detectChanges(); 
           // this.messages.push(response[0]);
           this.scrollToBottom();
+          this.sanitizeHtml(response[1].content);
+          this.cdr.detectChanges(); 
+          this.loadingText = false;
+          this.cdr.detectChanges(); 
           this.typeAssistantMessage(response[1]);
+          this.loadingText = false;
           this.cdr.detectChanges(); 
         }, 
         error: (err)=>{

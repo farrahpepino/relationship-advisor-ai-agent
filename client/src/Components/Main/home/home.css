@@ -5,6 +5,12 @@
     transition: right 0.25s ease, width 0.25s ease;
     background-color: white;
 }
+::ng-deep .custom-spinner circle {
+    stroke: #473224 !important;
+  }
+.loading-container{
+    margin-left: 15px;
+}
 
 .header{
     height: 70px;
