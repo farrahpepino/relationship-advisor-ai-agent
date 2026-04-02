@@ -186,7 +186,7 @@ typeAssistantChatTitle(chat: ChatResponse, speed: number = 50) {
       
     }
 
-    if (this.messages.length>4 ){
+    if (this.messages.length%8==0 ){
       this.chats = [];
       this.chatService.getConversations().subscribe({
         next: (res)=>{
